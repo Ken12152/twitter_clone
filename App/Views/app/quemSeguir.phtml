@@ -1,0 +1,115 @@
+<nav class="navbar navbar-expand-lg menu">
+	<div class="container">
+	  <div class="navbar-nav">
+	  	<a class="menuItem" href="/timeline">
+	  		Home
+	  	</a>
+
+	  	<a class="menuItem" href="/sair">
+	  		Sair
+	  	</a>
+			<img src="/img/twitter_logo.png" class="menuIco" />
+	  </div>
+	</div>
+</nav>
+
+<div class="container mt-5">
+	<div class="row pt-2">
+		
+		<div class="col-md-3">
+
+			<div class="perfil">
+				<div class="perfilTopo">
+
+				</div>
+
+				<div class="perfilPainel">
+					
+					<div class="row mt-2 mb-2">
+						<div class="col mb-2">
+							<span class="perfilPainelNome">
+								<?= $this->view->userName['name'] ?>
+							</span>
+						</div>
+					</div>
+
+					<div class="row mb-2">
+
+						<div class="col">
+							<span class="perfilPainelItem">Tweets</span><br />
+							<span class="perfilPainelItemValor">
+								<?= $this->view->totalTweets['total_tweets'] ?>
+							</span>
+						</div>
+
+						<div class="col">
+							<span class="perfilPainelItem">Seguindo</span><br />
+							<span class="perfilPainelItemValor">
+								<?= $this->view->totalFollowing['total_following'] ?>
+							</span>
+						</div>
+
+						<div class="col">
+							<span class="perfilPainelItem">Seguidores</span><br />
+							<span class="perfilPainelItemValor">
+								<?= $this->view->totalFollowers['total_followers'] ?>
+							</span>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-6">
+			
+			<div class="row mb-2">
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<form action="/quem_seguir" method="post">
+								<div class="input-group mb-3">
+									<input name="quem" type="text" class="form-control" placeholder="Quem você está procurando?">
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="submit">Procurar</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<?php foreach($this->view->usuariosPesquisa as $indice => $usuario) { ?>
+				<div class="row mb-2">
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-6">
+										<?= $usuario['name'] ?>
+									</div>
+								
+									<div class="col-md-6 d-flex justify-content-end">
+										<div>
+											<?php if(!$usuario['isfollowed']) { ?>
+												<a href="/action?action=follow&id=<?= $usuario['id'] ?>&isfollowed=<?= $usuario['isfollowed'] ?>" class="btn btn-success">Seguir</a>
+											<?php } ?>
+
+											<?php if($usuario['isfollowed']) { ?>
+												<a href="/action?action=unfollow&id=<?= $usuario['id'] ?>&isfollowed=<?= $usuario['isfollowed'] ?>" class="btn btn-danger">Deixar de seguir</a>
+											<?php } ?>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php } ?>
+
+		</div>
+	</div>
+</div>
